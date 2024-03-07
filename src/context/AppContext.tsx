@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from 'react';
-import { type SmartContext, useSmartContext } from 'smart-context';
+import { type SmartContext, useSmartContext } from 'smart-context-hooks';
 
 interface AppContext extends SmartContext {
     setCount: React.Dispatch<React.SetStateAction<number>>;

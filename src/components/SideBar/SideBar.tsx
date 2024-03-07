@@ -1,4 +1,4 @@
-import { useContextSetters } from 'smart-context';
+import { useContextSetters } from 'smart-context-hooks';
 import './SideBar.scss';
 import { appContext } from '../../context/AppContext';
 

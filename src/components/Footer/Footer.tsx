@@ -1,4 +1,4 @@
-import { useContextSelector } from 'smart-context';
+import { useContextSelector } from 'smart-context-hooks';
 import {
     appContext,
     selectContentPanelRenderCount,

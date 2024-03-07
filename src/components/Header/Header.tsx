@@ -1,4 +1,4 @@
-import { useContextSelector, useContextSetters } from 'smart-context';
+import { useContextSelector, useContextSetters } from 'smart-context-hooks';
 import { appContext, selectCount } from '../../context/AppContext';
 import './Header.scss';
 

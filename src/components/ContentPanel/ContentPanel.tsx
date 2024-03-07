@@ -1,4 +1,4 @@
-import { useContextSetters } from 'smart-context';
+import { useContextSetters } from 'smart-context-hooks';
 import { appContext } from '../../context/AppContext';
 
 const ContentPanel = () => {
