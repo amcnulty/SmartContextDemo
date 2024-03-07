@@ -2,7 +2,10 @@ import { useContextSetters } from 'smart-context';
 import { appContext } from '../../context/AppContext';
 
 const ContentPanel = () => {
-    console.log('rendering content panel');
+    const { setContentPanelRenderCount } = useContextSetters(appContext);
+
+    setContentPanelRenderCount((prev) => prev + 1);
+
     const { setCount } = useContextSetters(appContext);
     return (
         <div className='ContentPanel flex-grow-1'>

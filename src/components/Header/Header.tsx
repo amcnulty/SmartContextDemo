@@ -1,10 +1,12 @@
-import { useContextSelector } from 'smart-context';
-import './Header.scss';
+import { useContextSelector, useContextSetters } from 'smart-context';
 import { appContext, selectCount } from '../../context/AppContext';
+import './Header.scss';
 
 const Header = () => {
-    console.log('rendering header');
+    const { setHeaderRenderCount } = useContextSetters(appContext);
     const count = useContextSelector(appContext, selectCount);
+
+    setHeaderRenderCount((prev) => prev + 1);
 
     return (
         <div className='Header w-100 border-bottom'>
