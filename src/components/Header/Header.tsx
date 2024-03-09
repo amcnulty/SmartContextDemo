@@ -1,13 +1,11 @@
-import { useContextSelector, useContextSetters } from 'smart-context-hooks';
-import { appContext, selectCount } from '../../context/AppContext';
+import { useContextSetters } from 'smart-context-hooks';
+import { appContext } from '../../context/AppContext';
 import './Header.scss';
 import SearchProducts from '../SearchProducts/SearchProducts';
 import Icon, { IconName } from '../Icon/Icon';
 
 const Header = () => {
     const { setHeaderRenderCount } = useContextSetters(appContext);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const count = useContextSelector(appContext, selectCount);
 
     setHeaderRenderCount((prev) => prev + 1);
 
