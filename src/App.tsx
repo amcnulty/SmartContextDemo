@@ -5,7 +5,6 @@ import SideBar from './components/SideBar/SideBar';
 import { AppContextProvider } from './context/AppContext';
 
 const App = () => {
-    console.log('rendering app');
     return (
         <AppContextProvider>
             <div className='d-flex flex-column screen-height'>

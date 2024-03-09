@@ -21,26 +21,30 @@ const Footer = () => {
     );
 
     return (
-        <div className='Footer d-flex flex-column align-items-center border-top py-5'>
-            <h4>Component Render Counts</h4>
-            <p>
-                Watch how only the specific component that needs to render
-                updates as you interact with the UI.
-            </p>
-            <div className='card text-bg-secondary h4'>
-                <div className='card-body'>
-                    <div className='d-flex justify-content-center'>
-                        <div className='d-flex'>
-                            <span className='fw-bold me-2'>Header:</span>
-                            <span>{headerRenders}</span>
-                        </div>
-                        <div className='d-flex mx-4'>
-                            <span className='fw-bold me-2'>Side Bar:</span>
-                            <span>{sideBarRenders}</span>
-                        </div>
-                        <div className='d-flex'>
-                            <span className='fw-bold me-2'>Content Panel:</span>
-                            <span>{contentPanelRenders}</span>
+        <div className='Footer container'>
+            <div className='d-flex flex-column align-items-center border-top py-5'>
+                <h4>Component Render Counts</h4>
+                <p>
+                    Watch how only the specific component that needs to render
+                    updates as you interact with the UI.
+                </p>
+                <div className='card text-bg-secondary h4'>
+                    <div className='card-body'>
+                        <div className='d-flex justify-content-center'>
+                            <div className='d-flex'>
+                                <span className='fw-bold me-2'>Header:</span>
+                                <span>{headerRenders}</span>
+                            </div>
+                            <div className='d-flex mx-4'>
+                                <span className='fw-bold me-2'>Side Bar:</span>
+                                <span>{sideBarRenders}</span>
+                            </div>
+                            <div className='d-flex'>
+                                <span className='fw-bold me-2'>
+                                    Content Panel:
+                                </span>
+                                <span>{contentPanelRenders}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
