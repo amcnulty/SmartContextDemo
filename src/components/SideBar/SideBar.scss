@@ -1,3 +1,14 @@
 .SideBar {
     width: 200px;
+
+    &.compact {
+        width: 40px;
+    }
+
+    transition: width .25s ease-in;
+
+    > div:hover {
+        background-color: #ddd;
+        cursor: pointer;
+    }
 }
