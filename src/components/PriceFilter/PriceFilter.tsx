@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useContextSetters } from 'smart-context-hooks';
 import { appContext } from '../../context/AppContext';
 
