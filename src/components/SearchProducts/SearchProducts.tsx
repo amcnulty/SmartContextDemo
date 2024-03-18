@@ -6,13 +6,13 @@ const SearchProducts = () => {
     return (
         <div className='SearchProducts input-group my-3'>
             <label
-                htmlFor='username'
+                htmlFor='productSearch'
                 className='input-group-text d-none d-sm-flex'
             >
                 Search Products:
             </label>
             <input
-                id='username'
+                id='productSearch'
                 type='text'
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}

@@ -1,4 +1,6 @@
 .SideBar {
+    min-height: 220px;
+    max-height: calc(100vh - 104.59px - 244.59px);
     width: 200px;
 
     &.compact {
