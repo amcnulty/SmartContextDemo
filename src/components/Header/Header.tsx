@@ -15,9 +15,12 @@ const Header = () => {
         <div className='Header w-100 border-bottom'>
             <div className='container'>
                 <div className='d-flex justify-content-between align-items-center'>
-                    <h3 className='d-none d-sm-block m-0'>
-                        Smart Context Hooks Demo
-                    </h3>
+                    <div className='d-flex'>
+                        <img className='logoImage' src='favicon.png' alt='logo' />
+                        <h3 className='d-none d-sm-block m-0'>
+                            Smart Context Hooks Demo
+                        </h3>
+                    </div>
                     <div className='d-sm-none'>
                         <h5 className='m-0'>Smart Context</h5>
                         <h5 className='m-0'>Hooks Demo</h5>
