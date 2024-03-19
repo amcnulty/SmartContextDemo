@@ -1,15 +1,15 @@
-import { useContextSetters } from 'smart-context-hooks';
+import { useContextSelector, useContextSetters } from 'smart-context-hooks';
 import './SideBar.scss';
-import { appContext } from '../../context/AppContext';
+import { appContext, selectIsCompact } from '../../context/AppContext';
 import Icon, { IconName } from '../Icon/Icon';
 import CategoryFilter from '../CategoryFilter/CategoryFilter';
 import PriceFilter from '../PriceFilter/PriceFilter';
+import StockFilter from '../StockFilter/StockFilter';
 
 const SideBar = () => {
+    const isCompact = useContextSelector(appContext, selectIsCompact);
     const { setSideBarRenderCount } = useContextSetters(appContext);
     setSideBarRenderCount((prev) => prev + 1);
-
-    const isCompact = false;
 
     return (
         <div
@@ -33,15 +33,21 @@ const SideBar = () => {
                 <Icon name={IconName.chat} size={24} />
                 <span className='ms-2 text-nowrap'>Help & Support</span>
             </div>
-            <section className='ps-2'>
+            <section className={`ps-2 ${isCompact ? 'border-bottom' : ''}`}>
                 <div className='d-flex align-items-center overflow-hidden py-3'>
                     <Icon name={IconName.filter} size={24} />
                     <span className='ms-2 text-nowrap'>Filters</span>
                 </div>
-                <p className='fw-bold'>Category</p>
-                <CategoryFilter />
-                <p className='fw-bold'>Price</p>
-                <PriceFilter />
+                {!isCompact && (
+                    <>
+                        <p className='fw-bold'>Category</p>
+                        <CategoryFilter />
+                        <p className='fw-bold'>Price</p>
+                        <PriceFilter />
+                        <p className='fw-bold'>Availability</p>
+                        <StockFilter />
+                    </>
+                )}
             </section>
         </div>
     );

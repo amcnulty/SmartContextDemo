@@ -22,7 +22,7 @@ const Footer = () => {
 
     return (
         <div className='Footer border-top'>
-            <div className='container d-flex flex-column align-items-center py-5'>
+            <div className='container d-flex flex-column align-items-center py-4'>
                 <h4>Component Render Counts</h4>
                 <p>
                     Watch how only the specific component that needs to render

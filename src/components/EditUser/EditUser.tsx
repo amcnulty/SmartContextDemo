@@ -1,11 +1,16 @@
 import { useState } from 'react';
+import { useContextSetters } from 'smart-context-hooks';
+import { appContext } from '../../context/AppContext';
+import { DEFAULT_USERNAME } from '../../constants/constants';
 
 const EditUser = () => {
+    const { setUsername } = useContextSetters(appContext);
     const [isEditing, setIsEditing] = useState(false);
-    const [username, setUsername] = useState('');
+    const [username, setUsernameLocal] = useState(DEFAULT_USERNAME);
 
     const handleSaveClick = () => {
         setIsEditing(false);
+        setUsername(username);
     };
 
     return (
@@ -19,7 +24,9 @@ const EditUser = () => {
                         id='username'
                         type='text'
                         value={username}
-                        onChange={(event) => setUsername(event.target.value)}
+                        onChange={(event) =>
+                            setUsernameLocal(event.target.value)
+                        }
                         className='form-control'
                     />
                     <button

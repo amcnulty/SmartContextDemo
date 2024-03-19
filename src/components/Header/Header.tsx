@@ -1,11 +1,13 @@
-import { useContextSetters } from 'smart-context-hooks';
-import { appContext } from '../../context/AppContext';
+import { useContextSelector, useContextSetters } from 'smart-context-hooks';
+import { appContext, selectUsername } from '../../context/AppContext';
 import './Header.scss';
 import SearchProducts from '../SearchProducts/SearchProducts';
 import Icon, { IconName } from '../Icon/Icon';
 
 const Header = () => {
-    const { setHeaderRenderCount } = useContextSetters(appContext);
+    const username = useContextSelector(appContext, selectUsername);
+    const { setHeaderRenderCount, setIsCompact } =
+        useContextSetters(appContext);
 
     setHeaderRenderCount((prev) => prev + 1);
 
@@ -22,7 +24,7 @@ const Header = () => {
                     </div>
                     <div className='d-flex align-items-center'>
                         <Icon size={24} name={IconName.user} />
-                        <span className='ms-1'>amcnulty88</span>
+                        <span className='ms-1'>{username}</span>
                     </div>
                 </div>
                 <div className='d-flex justify-content-center'>
@@ -37,8 +39,8 @@ const Header = () => {
                             className='form-check-input'
                             type='checkbox'
                             id='toggleSwitch'
-                            // checked={isChecked}
-                            // onChange={handleToggleChange}
+                            defaultChecked={window.innerWidth < 576}
+                            onChange={() => setIsCompact((prev) => !prev)}
                         />
                     </div>
                     <div className='col-9 col-md-8 col-lg-6 col-xxl-5 mx-auto'>

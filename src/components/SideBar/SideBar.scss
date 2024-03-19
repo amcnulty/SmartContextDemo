@@ -1,10 +1,16 @@
 .SideBar {
     min-height: 220px;
-    max-height: calc(100vh - 104.59px - 244.59px);
+    max-height: calc(100vh - 104.59px - 196.59px);
+    min-width: 40px;
     width: 200px;
 
     &.compact {
         width: 40px;
+
+        > section:hover {
+            background-color: #ddd;
+            cursor: pointer;
+        }
     }
 
     transition: width .25s ease-in;
