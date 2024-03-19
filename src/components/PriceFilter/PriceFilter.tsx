@@ -1,6 +1,6 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useContextSetters } from 'smart-context-hooks';
-import { appContext } from '../../context/AppContext';
+import { ChangeEvent, useEffect } from 'react';
+import { useContextSelector, useContextSetters } from 'smart-context-hooks';
+import { appContext, selectPriceFilters } from '../../context/AppContext';
 
 export interface PriceFilters {
     low?: boolean;
@@ -9,8 +9,8 @@ export interface PriceFilters {
 }
 
 const PriceFilter = () => {
-    const { filterGames } = useContextSetters(appContext);
-    const [priceFilters, setPriceFilters] = useState<PriceFilters>({});
+    const { filterGames, setPriceFilters } = useContextSetters(appContext);
+    const priceFilters = useContextSelector(appContext, selectPriceFilters);
 
     useEffect(() => {
         filterGames({ prices: priceFilters });

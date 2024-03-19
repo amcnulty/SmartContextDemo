@@ -1,6 +1,6 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useContextSetters } from 'smart-context-hooks';
-import { appContext } from '../../context/AppContext';
+import { ChangeEvent, useEffect } from 'react';
+import { useContextSelector, useContextSetters } from 'smart-context-hooks';
+import { appContext, selectFilterCategories } from '../../context/AppContext';
 
 export interface FilterCategories {
     Action?: boolean;
@@ -13,10 +13,14 @@ export interface FilterCategories {
 }
 
 const CategoryFilter = () => {
-    const { filterGames } = useContextSetters(appContext);
-    const [filterCategories, setFilterCategories] = useState<FilterCategories>(
-        {}
+    const { filterGames, setFilterCategories } = useContextSetters(appContext);
+    const filterCategories = useContextSelector(
+        appContext,
+        selectFilterCategories
     );
+    // const [filterCategories, setFilterCategories] = useState<FilterCategories>(
+    //     {}
+    // );
 
     useEffect(() => {
         filterGames({ categories: filterCategories });

@@ -5,10 +5,12 @@ import Icon, { IconName } from '../Icon/Icon';
 import CategoryFilter from '../CategoryFilter/CategoryFilter';
 import PriceFilter from '../PriceFilter/PriceFilter';
 import StockFilter from '../StockFilter/StockFilter';
+import FilterModal from '../FilterModal/FilterModal';
 
 const SideBar = () => {
     const isCompact = useContextSelector(appContext, selectIsCompact);
-    const { setSideBarRenderCount } = useContextSetters(appContext);
+    const { setSideBarRenderCount, setShowModal } =
+        useContextSetters(appContext);
     setSideBarRenderCount((prev) => prev + 1);
 
     return (
@@ -34,7 +36,10 @@ const SideBar = () => {
                 <span className='ms-2 text-nowrap'>Help & Support</span>
             </div>
             <section className={`ps-2 ${isCompact ? 'border-bottom' : ''}`}>
-                <div className='d-flex align-items-center overflow-hidden py-3'>
+                <div
+                    className='d-flex align-items-center overflow-hidden py-3'
+                    onClick={() => isCompact && setShowModal(true)}
+                >
                     <Icon name={IconName.filter} size={24} />
                     <span className='ms-2 text-nowrap'>Filters</span>
                 </div>
@@ -49,6 +54,7 @@ const SideBar = () => {
                     </>
                 )}
             </section>
+            <FilterModal />
         </div>
     );
 };

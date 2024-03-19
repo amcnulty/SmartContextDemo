@@ -17,6 +17,10 @@ interface AppContext extends SmartContext {
     setIsCompact: React.Dispatch<React.SetStateAction<boolean>>;
     setUsername: React.Dispatch<React.SetStateAction<string>>;
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+    setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+    setFilterCategories: React.Dispatch<React.SetStateAction<FilterCategories>>;
+    setPriceFilters: React.Dispatch<React.SetStateAction<PriceFilters>>;
+    setInStockChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const appContext = createContext<AppContext>({} as AppContext);
@@ -29,6 +33,10 @@ interface AppState {
     isCompact: boolean;
     username: string;
     searchTerm: string;
+    showModal: boolean;
+    filterCategories: FilterCategories;
+    priceFilters: PriceFilters;
+    inStockChecked: boolean;
 }
 
 export const selectVideoGames = (state: AppState) => state.videoGames;
@@ -41,6 +49,11 @@ export const selectContentPanelRenderCount = (state: AppState) =>
 export const selectIsCompact = (state: AppState) => state.isCompact;
 export const selectUsername = (state: AppState) => state.username;
 export const selectSearchTerm = (state: AppState) => state.searchTerm;
+export const selectShowModal = (state: AppState) => state.showModal;
+export const selectFilterCategories = (state: AppState) =>
+    state.filterCategories;
+export const selectPriceFilters = (state: AppState) => state.priceFilters;
+export const selectInStockChecked = (state: AppState) => state.inStockChecked;
 
 interface AllFilters {
     categories?: FilterCategories;
@@ -57,6 +70,12 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     const [isCompact, setIsCompact] = useState(() => window.innerWidth < 576);
     const [username, setUsername] = useState(DEFAULT_USERNAME);
     const [searchTerm, setSearchTerm] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [filterCategories, setFilterCategories] = useState<FilterCategories>(
+        {}
+    );
+    const [priceFilters, setPriceFilters] = useState<PriceFilters>({});
+    const [inStockChecked, setInStockChecked] = useState(false);
 
     useEffect(() => {
         let filteredVideoGames: VideoGame[] = fakeVideoGames;
@@ -65,48 +84,61 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
                 game.name.toUpperCase().includes(searchTerm.toUpperCase())
             );
         }
+        setFilterCategories({});
+        setPriceFilters({});
+        setInStockChecked(false);
         setVideoGames(filteredVideoGames);
     }, [searchTerm]);
 
     useEffect(() => {
-        let filteredVideoGames: VideoGame[] = fakeVideoGames;
-        if (
-            allFilters.categories &&
-            Object.values(allFilters.categories).some((isChecked) => isChecked)
-        ) {
-            filteredVideoGames = filteredVideoGames.filter(
-                (game) => allFilters.categories![game.category]
-            );
-        }
-        if (
-            allFilters.prices &&
-            Object.values(allFilters.prices).some((isChecked) => isChecked)
-        ) {
-            filteredVideoGames = filteredVideoGames.filter((game) => {
-                let result = false;
-                if (allFilters.prices?.low && game.price < 20) result = true;
-                if (
-                    allFilters.prices?.med &&
-                    game.price > 19.99 &&
-                    game.price < 40
+        if (!searchTerm) {
+            let filteredVideoGames: VideoGame[] = fakeVideoGames;
+            if (
+                allFilters.categories &&
+                Object.values(allFilters.categories).some(
+                    (isChecked) => isChecked
                 )
-                    result = true;
-                if (
-                    allFilters.prices?.high &&
-                    game.price > 39.99 &&
-                    game.price < 60
-                )
-                    result = true;
-                return result;
-            });
+            ) {
+                filteredVideoGames = filteredVideoGames.filter(
+                    (game) => allFilters.categories![game.category]
+                );
+            }
+            if (
+                allFilters.prices &&
+                Object.values(allFilters.prices).some((isChecked) => isChecked)
+            ) {
+                filteredVideoGames = filteredVideoGames.filter((game) => {
+                    let result = false;
+                    if (allFilters.prices?.low && game.price < 20)
+                        result = true;
+                    if (
+                        allFilters.prices?.med &&
+                        game.price > 19.99 &&
+                        game.price < 40
+                    )
+                        result = true;
+                    if (
+                        allFilters.prices?.high &&
+                        game.price > 39.99 &&
+                        game.price < 60
+                    )
+                        result = true;
+                    return result;
+                });
+            }
+            if (allFilters.inStock) {
+                filteredVideoGames = filteredVideoGames.filter(
+                    (game) => game.inStock
+                );
+            }
+            setVideoGames(filteredVideoGames);
         }
-        if (allFilters.inStock) {
-            filteredVideoGames = filteredVideoGames.filter(
-                (game) => game.inStock
-            );
-        }
-        setVideoGames(filteredVideoGames);
-    }, [allFilters.categories, allFilters.inStock, allFilters.prices]);
+    }, [
+        allFilters.categories,
+        allFilters.inStock,
+        allFilters.prices,
+        searchTerm
+    ]);
 
     const filterGames = (filters: {
         categories?: FilterCategories;
@@ -134,7 +166,11 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
             videoGames,
             isCompact,
             username,
-            searchTerm
+            searchTerm,
+            showModal,
+            filterCategories,
+            priceFilters,
+            inStockChecked
         },
         {
             setHeaderRenderCount,
@@ -143,7 +179,11 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
             filterGames,
             setIsCompact,
             setUsername,
-            setSearchTerm
+            setSearchTerm,
+            setShowModal,
+            setFilterCategories,
+            setPriceFilters,
+            setInStockChecked
         }
     );
 

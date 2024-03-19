@@ -1,13 +1,10 @@
 import { useContextSelector, useContextSetters } from 'smart-context-hooks';
 import DataGrid, { Column } from 'react-data-grid';
-import {
-    appContext,
-    selectSearchTerm,
-    selectVideoGames
-} from '../../context/AppContext';
+import { appContext, selectVideoGames } from '../../context/AppContext';
 import EditUser from '../EditUser/EditUser';
 import { VideoGame } from '../../mockData/VideoGames';
 import './ContentPanel.scss';
+import SearchTermMessage from '../SearchTermMessage/SearchTermMessage';
 
 const columns: Column<VideoGame>[] = [
     {
@@ -44,7 +41,6 @@ const columns: Column<VideoGame>[] = [
 const ContentPanel = () => {
     const { setContentPanelRenderCount } = useContextSetters(appContext);
     const videoGames = useContextSelector(appContext, selectVideoGames);
-    const searchTerm = useContextSelector(appContext, selectSearchTerm);
 
     setContentPanelRenderCount((prev) => prev + 1);
 
@@ -55,7 +51,7 @@ const ContentPanel = () => {
                     <EditUser />
                 </div>
                 <h4>Game Catalog</h4>
-                {searchTerm && <p>Showing results for "{searchTerm}"</p>}
+                <SearchTermMessage />
                 <div className='gridWrapper pb-5 overflow-auto'>
                     <DataGrid columns={columns} rows={videoGames} />
                 </div>
